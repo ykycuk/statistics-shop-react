@@ -3,13 +3,27 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {BrowserRouter} from "react-router-dom";
+import axios from "axios";
+import configureStore from "./redux/configureStore";
+import {Provider} from "react-redux";
+
+axios.defaults.baseURL = 'http://localhost:8000/api/';
+axios.defaults.withCredentials = true; // get cookies from backend and sent it back
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+const store = configureStore();
+
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <BrowserRouter>
+          <App />
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );
 
